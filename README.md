@@ -4,7 +4,7 @@
 
 ## Introduction
 
-Skydnn AI APIs enable state-of-the-art Computer Vision AI inferences to detect and catgorise objects in the photographs and generate localisation as well as map view of geospatial objects useful for a wide range of geospatial analytics and applications. These APIs allow a developer to integrate into their own application the power and full set of functionalities of the Skydnn product and platform offered by Mappls (MapmyIndia).
+Transform your application with the cutting-edge power of Skydnn AI APIs from MapmyIndia. Our state-of-the-art Computer Vision technology detects, classifies and localizes objects in photographs, and generates a map view of geospatial objects for a variety of geospatial analytics and applications. With these APIs, developers can effortlessly integrate the full suite of Skydnn product and platform functionalities into their own applications, elevating their capabilities to new heights.
 
 
 ## How Mappls AI APIs Enhance Value of any Solution
