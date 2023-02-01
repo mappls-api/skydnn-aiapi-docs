@@ -1,0 +1,235 @@
+openapi: 3.0.0
+info:
+  title: >-
+    Mappls Skydnn AI API
+  description: >-
+    Image classification and segmentation APIs enable state-of-the-art Computer Vision AI inferences to detect and catgorise objects in the photographs and generate localisation as well as map view of geospatial objects useful for a wide range of geospatial analytics and applications. <hr><br>[<img src="https://about.mappls.com/images/mappls-logo.svg" height="100"/> </p>](https://about.mappls.com/api)
+    <hr>
+    
+    On a Mission to <b>"Make our world better through maps, location technologies & IoT"</b>, Mappls is continuously enabling real time hyper-local information access through its map & location services. Skydnn APIs are a part of Skydnn AI platform and the document describes API's usage and specifications for their integration into any solution. <br><br>The document covers :
+    <ul><li>List of APIs along with use cases</ul></li> 
+    <ul><li>Explanation of resources and query parameters</ul></li>
+    <ul><li>Listing of response structure and data type</ul></li>
+    [<img src="./images/homebutton.png" height="40"/>](./index.html)
+  contact:
+    name: Mappls API Support
+    url: https://about.mappls.com/api
+    email:  apisupport@mappls.com
+  termsOfService: https://about.mappls.com/api/terms-&-conditions
+  version: V1.0.0
+  license:
+    name: Revised BSD-3 Clause
+    url: https://github.com/mappls-api
+servers:
+  - url: 'https://ai.mappls.com'
+security:
+  - bearerAuth: [] 
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT  # optional, for documentation purposes only
+paths:
+  /predict:
+    post:
+      summary: Returns the prediction as response in form of JSON
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Successful.
+          content:
+            application/json:
+              examples:
+                apires:
+                  value:
+                    api: null
+                    type: vidteq-ssb-1
+                    dnnarch: yolov3
+                    result:
+                      130419_093229_16718_zed_l_049.jpg:
+                        regions:
+                          - region_attributes:
+                              label: shopname
+                              score: 0.6513383388519287
+                            shape_attributes:
+                              name: rect
+                              'y': 34
+                              x: 26
+                              height: 210
+                              width: 326
+                          - region_attributes:
+                              label: shopname
+                              score: 0.4883211851119995
+                            shape_attributes:
+                              name: rect
+                              'y': 207
+                              x: 712
+                              height: 199
+                              width: 81
+                          - region_attributes:
+                              label: shopname
+                              score: 0.4395501911640167
+                            shape_attributes:
+                              name: rect
+                              'y': 10
+                              x: 423
+                              height: 187
+                              width: 103
+                        file_attributes:
+                          width: 1920
+                          height: 1080
+                          uuid: pred-b241fece-10df-4ad5-bdcf-ca14e1b18deb
+                        size: 0
+                        filename: 130419_093229_16718_zed_l_049.jpg
+                    status_code: 200
+                    timings:
+                      image_read: 0.047499656677246094
+                      detect_with_json: 0.3955676555633545
+                      res_preparation: 0.00006556510925292969
+                      tt_turnaround: 0.4431617259979248
+        '400':
+          description: Invalid Image Type
+        '500':
+          description: Internal Error. Exception in detection
+  /models:
+    get:
+      summary: Returns the details of all the models
+      responses:
+        '200':
+          description: Successful.
+        '400':
+          description: No current models in port
+        '500':
+          description: Internal Error. Exception during processing whoami.
+  /models/{api_model_key}:
+    get:
+      summary: Returns the details of provided model
+      parameters:
+        - name: api_model_key
+          in: path
+          required: true
+          description: model key
+          schema:
+            type: string
+            example: vidteq-ods-9
+      responses:
+        '200':
+          description: Successful.
+          content:
+            application/json:
+              examples:
+                apires:
+                  value:
+                    created_on: '2020-12-22 17:59:37 +05:30'
+                    checkpoint_path: >-
+                      /aimldl-dat/logs/mask_rcnn/040220_185612/train_hmd_040220_185627/mask_rcnn_hmd_{epoch:04d}.h5
+                    classes:
+                      - BG
+                      - signage
+                      - traffic_light
+                      - traffic_sign
+                    classinfo: null
+                    config:
+                      DETECTION_MIN_CONFIDENCE: 0.9
+                      GPU_COUNT: 1
+                      IMAGES_PER_GPU: 1
+                      IMAGE_MAX_DIM: 1024
+                      IMAGE_MIN_DIM: 800
+                      STEPS_PER_EPOCH: 1000
+                      NAME: hmd
+                      NUM_CLASSES: 4
+                    creator: AIE1
+                    dataset: PXL-040220_183906
+                    dbname: oasis
+                    dnnarch: mask_rcnn
+                    filename: vidteq-ods-9-mask_rcnn.yml
+                    filepath: >-
+                      /codehub/aihub/aimldl-dat/cfg/model/release/vidteq-ods-9-mask_rcnn.yml
+                    framework_type: keras
+                    id: null
+                    load_weights:
+                      by_name: true
+                      exclude:
+                        - mrcnn_class_logits
+                        - mrcnn_bbox_fc
+                        - mrcnn_bbox
+                        - mrcnn_mask
+                    log_dir: api/vidteq-ods-9
+                    mode: inference
+                    model_info: vidteq-hmd-040220_185627-mask_rcnn.yml
+                    name: hmd
+                    num_classes: 4
+                    org_name: vidteq
+                    problem_id: ods
+                    rel_num: '9'
+                    timestamp: '221220_175937'
+                    uuid: uuid-45ff9baa-2561-4e21-9703-e22b90fe951d
+                    weights: null
+                    weights_path: >-
+                      /codehub/aihub/aimldl-dat/release/vidteq/ods/9/mask_rcnn/weights/mask_rcnn_hmd_0200.h5
+                    log_dir_path: /codehub/aihub/aimldl-dat/logs/api/vidteq-ods-9
+        '400':
+          description: No current models in port
+        '500':
+          description: Internal Error. Exception during processing whoami.
+  /server/whoami:
+    get:
+      summary: Returns the current models in port
+      responses:
+        '200':
+          description: Successful.
+          content:
+            application/json:
+              examples:
+                apires:
+                  value:
+                    api: null
+                    type: vidteq-ssb-1
+                    dnnarch: yolov3
+                    result:
+                      api_model_keys:
+                        - vidteq-hmd-1
+                        - vidteq-hmd-2
+                        - vidteq-hmd-3
+                        - vidteq-hmd-6
+                        - vidteq-ods-7
+                        - vidteq-ods-8
+                        - vidteq-ods-9
+                        - vidteq-rld-1
+                        - vidteq-rbd-1
+                        - vidteq-rod-1
+                        - vidteq-rjd-1
+                        - vidteq-rldc-4
+                        - vidteq-rom-1
+                        - vidteq-sbd-1
+                        - vidteq-sbd-2
+                        - vidteq-sgc-1
+                        - vidteq-sgc-2
+                        - vidteq-tlc-1
+                        - vidteq-tlc-2
+                        - vidteq-tls-1
+                        - vidteq-tls-2
+                        - vidteq-tsc-1
+                        - vidteq-tsc-2
+                        - vidteq-bhm-1
+                        - vidteq-tsdr-1
+                        - vidteq-ssb-1
+                        - vidteq-rjm-1
+                        - vidteq-rsm-1
+                        - vidteq-hnm-1
+                        - vidteq-vmd-1
+                    status_code: 200
+                    timings: null
+        '400':
+          description: No current models in port
+        '500':
+          description: Internal Error. Exception during processing whoami.
