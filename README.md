@@ -25,8 +25,8 @@ and returns the response of the inference with confidence score, labels and resp
 
 Skydnn AI APIs are grouped under various categories providing wide range of functionalities which can be leveraged by enterprise and consumer.
 
-* [Modelhub](docs/modelhub.md)
-* [API Endpoints](docs/api-endpoints.md)
+* [Modelhub](docs/docs/modelhub.md)
+* [API Endpoints](docs/docs/api-endpoints.md)
 
 Try out using swagger: [Tesselate 1.0](docs/custom/swagger-aimldl-auth-min-v2.yml)
 
